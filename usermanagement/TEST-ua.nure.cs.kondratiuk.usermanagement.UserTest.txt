@@ -1,0 +1,10 @@
+Testsuite: ua.nure.cs.kondratiuk.usermanagement.UserTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,006 sec
+
+Testcase: testGetFullName took 0,003 sec
+Testcase: testGetAge1 took 0 sec
+Testcase: testGetAge2 took 0 sec
+Testcase: testGetAge3 took 0 sec
+Testcase: testGetAge4 took 0 sec
+Testcase: testGetAge5 took 0 sec
+Testcase: testGetAge took 0 sec
