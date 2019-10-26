@@ -19,18 +19,11 @@
 		<javac srcdir="${main-java-dir}" destdir="${build-dir}"/>
 	</target>
 	
-	<target name="test-compile" >
+	<target name="test-compile" depends="init" >
 		<javac srcdir="${test-java-dir}" destdir="${build-dir}" includeantruntime="false"/>
 	</target>
 			
-	<target name="test" depends="test-compile">		
-		<!--<junit>
-			<formatter type="plain"/>
-			<classpath>
-				<pathelement location="${build-dir}" />
-			</classpath>	
-			<test name="ua.nure.cs.kondratiuk.usermanagement.UserTest"></test>
-		</junit>-->
+	<target name="test" depends="test-compile">	
 		<junit>
 			<classpath>
 				<fileset dir="${test-java-dir}">
