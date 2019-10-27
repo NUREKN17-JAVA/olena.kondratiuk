@@ -3,4 +3,4 @@ connection.url=jdbc:hsqldb:file:db/usermanagement
 connection.user=sa
 connection.password=
 
-dao.UserDao=ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDao
+ua.nure.cs.kondratiuk.usermanagement.db.Dao=ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDao

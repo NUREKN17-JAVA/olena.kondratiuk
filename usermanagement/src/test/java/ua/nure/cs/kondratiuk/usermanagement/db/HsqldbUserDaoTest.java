@@ -39,7 +39,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 	
 	public void testFindAll() throws DatabaseExeption {
 		Collection<User> items = dao.findAll();
-		assertNotNull(items);
+		assertNotNull("Collection is null", items);
 		assertEquals("collectoin size does not match", 2, items.size());
 	}	
 
@@ -49,7 +49,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 
 	@Override
 	protected IDatabaseConnection getConnection() throws Exception {
-		connectionFactory = new ConnectionFactoryImpl();
+		connectionFactory = new ConnectionFactoryImpl("org.hsqldb.jdbcDriver", "jdbc:hsqldb:file:db/usermanagement", "sa", "");
 		return new DatabaseConnection(connectionFactory.createConnection());
 	}
 

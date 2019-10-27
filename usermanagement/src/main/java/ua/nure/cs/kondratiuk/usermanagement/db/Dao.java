@@ -15,4 +15,6 @@ public interface Dao<T> {
 	void delete(T entity) throws DatabaseExeption;
 	
 	Collection<T> findAll() throws DatabaseExeption;
+	
+	void setConnectoinFactory(ConnectionFactory connectoinFactory);
 }

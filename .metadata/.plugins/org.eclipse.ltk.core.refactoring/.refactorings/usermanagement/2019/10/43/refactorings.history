@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant &apos;USER_DAO&apos; from expression &apos;&quot;ua.nure.cs.kondratiuk.usermanagement.db.Dao&quot;&apos;&#x0D;&#x0A;- Original project: &apos;usermanagement&apos;&#x0D;&#x0A;- Constant name: &apos;USER_DAO&apos;&#x0D;&#x0A;- Constant expression: &apos;&quot;ua.nure.cs.kondratiuk.usermanagement.db.Dao&quot;&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;&#x0D;&#x0A;- Replace occurrences of expression with constant" description="Extract constant &apos;USER_DAO&apos;" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src\/main\/java&lt;ua.nure.cs.kondratiuk.usermanagement.db{DaoFactory.java" name="USER_DAO" qualify="false" replace="true" selection="1052 45" stamp="1572135259831" version="1.0" visibility="2"/>
+</session>
