@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.dbunit.DatabaseTestCase"/>
-<fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.User"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
@@ -20,4 +19,5 @@
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
 <fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl"/>
+<fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.User"/>
 </qualifiedTypeNameHistroy>

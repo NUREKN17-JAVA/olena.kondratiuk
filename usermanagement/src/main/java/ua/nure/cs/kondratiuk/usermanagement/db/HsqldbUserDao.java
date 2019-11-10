@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 import ua.nure.cs.kondratiuk.usermanagement.User;
 
-public class HsqldbUserDao implements Dao<User> {
+class HsqldbUserDao implements Dao {
 
 	private static final String SELECT_FIND_ALL = "SELECT id, firstname, lastname, dateofbirth FROM users";
 	private static final String INSERT_QUERY = "INSERT INTO users (firstname, lastname, dateofbirth) VALUES (?,?,?)";
@@ -33,13 +33,12 @@ public class HsqldbUserDao implements Dao<User> {
 
 
 
-	public void setConnectoinFactory(ConnectionFactory connectoinFactory) {
+	public void setConnectionFactory(ConnectionFactory connectoinFactory) {
 		this.connectoinFactory = connectoinFactory;
 	}
 
 
 
-	@Override
 	public User create(User entity) throws DatabaseExeption {
 		try {
 			Connection connection = connectoinFactory.createConnection();
@@ -72,25 +71,21 @@ public class HsqldbUserDao implements Dao<User> {
 		}
 	}
 
-	@Override
 	public User find(Long id) throws DatabaseExeption {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void update(User entity) throws DatabaseExeption {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void delete(User entity) throws DatabaseExeption {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public Collection<User> findAll() throws DatabaseExeption {
 		Collection<User> result = new LinkedList<User>();
 		try {

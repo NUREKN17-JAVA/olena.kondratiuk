@@ -1,25 +1,36 @@
 package ua.nure.cs.kondratiuk.usermanagement.db;
 
+
 import java.io.IOException;
 import java.util.Properties;
 
-public abstract class DaoFactory {
+public class DaoFactory {
 	private static final String USER_DAO = "ua.nure.cs.kondratiuk.usermanagement.db.Dao";
 	private static final String DAO_FACTORY = "dao.factory";
-
-	protected DaoFactory() {
-	}
-	private static DaoFactory instance;
-	protected static Properties properties;
+	private static Properties properties;
 	
-	static {
+	private static DaoFactory INSTANCE = new DaoFactory();
+	
+	private DaoFactory() {
 		properties = new Properties();
-		try {
-			properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+	try {
+		properties.load(getClass().getClassLoader().getResourceAsStream("settings.properties"));
+	} catch (IOException e) {
+		throw new RuntimeException(e);
 	}
+		
+	}
+	//private static DaoFactory instance;
+//	protected static Properties properties;
+	
+//	static {
+//		properties = new Properties();
+//		try {
+//			properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
+//		} catch (IOException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 	
 	private ConnectionFactory getConnectionFactory () {
 		String user = properties.getProperty("connection.user");
@@ -31,11 +42,10 @@ public abstract class DaoFactory {
 	
 	public Dao getDao () {
 		Dao result = null;
-		Class clazz;
 		try {
-			clazz = Class.forName(properties.getProperty(USER_DAO));
-			Dao userDao = (Dao) clazz.newInstance();
-			userDao.setConnectoinFactory(getConnectionFactory());
+			Class clazz = Class.forName(properties.getProperty(USER_DAO));
+			result = (Dao) clazz.newInstance();
+			result.setConnectionFactory(getConnectionFactory());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}		
@@ -43,16 +53,16 @@ public abstract class DaoFactory {
 	}
 	
 	public static synchronized DaoFactory getInstance() {
-		if (instance == null) {
+		if (INSTANCE == null) {
 			Class<?> factoryClass;
 			try {
 				factoryClass = Class.forName(properties.getProperty(DAO_FACTORY));
-				instance = (DaoFactory) factoryClass.newInstance();
+				INSTANCE = (DaoFactory) factoryClass.newInstance();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
 		}
-		return instance;
+		return INSTANCE;
 	}
 }
 	
