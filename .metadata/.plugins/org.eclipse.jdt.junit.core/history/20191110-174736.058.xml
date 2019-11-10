@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="UserTest" project="usermanagement" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0">
+    <testcase name="testGetFullName" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge1" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge2" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge3" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge4" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge5" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+    <testcase name="testGetAge" classname="ua.nure.cs.kondratiuk.usermanagement.UserTest" time="0.0"/>
+  </testsuite>
+</testrun>

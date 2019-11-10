@@ -21,6 +21,9 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
 	}
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
 	public long getId() {
 		return id;
 	}

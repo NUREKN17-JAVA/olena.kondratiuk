@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="HsqldbUserDaoTest" project="usermanagement" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.173">
+    <testcase name="testFindAll" classname="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.16"/>
+    <testcase name="testCreate" classname="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.007"/>
+    <testcase name="testUpdate" classname="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.005"/>
+  </testsuite>
+</testrun>

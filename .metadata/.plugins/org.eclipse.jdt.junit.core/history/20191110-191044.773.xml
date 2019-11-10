@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="HsqldbUserDaoTest" project="usermanagement" tests="2" started="2" failures="0" errors="2" ignored="0">
+  <testsuite name="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.096">
+    <testcase name="testFindAll" classname="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.093">
+      <error>ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption: java.sql.SQLException: The database is already in use by another process: org.hsqldb.persist.NIOLockFile@8a0c27ee[file =D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck, exists=true, locked=false, valid=false, fl =null]: java.lang.Exception: checkHeartbeat(): lock file [D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck] is presumably locked by another process.&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl.createConnection(ConnectionFactoryImpl.java:31)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest.getConnection(HsqldbUserDaoTest.java:53)&#13;
+	at org.dbunit.DatabaseTestCase.executeOperation(DatabaseTestCase.java:84)&#13;
+	at org.dbunit.DatabaseTestCase.setUp(DatabaseTestCase.java:104)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest.setUp(HsqldbUserDaoTest.java:23)&#13;
+	at junit.framework.TestCase.runBare(TestCase.java:139)&#13;
+	at junit.framework.TestResult$1.protect(TestResult.java:122)&#13;
+	at junit.framework.TestResult.runProtected(TestResult.java:142)&#13;
+	at junit.framework.TestResult.run(TestResult.java:125)&#13;
+	at junit.framework.TestCase.run(TestCase.java:129)&#13;
+	at junit.framework.TestSuite.runTest(TestSuite.java:252)&#13;
+	at junit.framework.TestSuite.run(TestSuite.java:247)&#13;
+	at org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestReference.run(JUnit3TestReference.java:124)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:541)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209)&#13;
+Caused by: java.sql.SQLException: The database is already in use by another process: org.hsqldb.persist.NIOLockFile@8a0c27ee[file =D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck, exists=true, locked=false, valid=false, fl =null]: java.lang.Exception: checkHeartbeat(): lock file [D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck] is presumably locked by another process.&#13;
+	at org.hsqldb.jdbc.Util.sqlException(Unknown Source)&#13;
+	at org.hsqldb.jdbc.jdbcConnection.&lt;init&gt;(Unknown Source)&#13;
+	at org.hsqldb.jdbcDriver.getConnection(Unknown Source)&#13;
+	at org.hsqldb.jdbcDriver.connect(Unknown Source)&#13;
+	at java.sql.DriverManager.getConnection(Unknown Source)&#13;
+	at java.sql.DriverManager.getConnection(Unknown Source)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl.createConnection(ConnectionFactoryImpl.java:29)&#13;
+	... 17 more&#13;
+&#13;
+</error>
+    </testcase>
+    <testcase name="testCreate" classname="ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest" time="0.003">
+      <error>ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption: java.sql.SQLException: The database is already in use by another process: org.hsqldb.persist.NIOLockFile@8a0c27ee[file =D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck, exists=true, locked=false, valid=false, fl =null]: java.lang.Exception: checkHeartbeat(): lock file [D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck] is presumably locked by another process.&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl.createConnection(ConnectionFactoryImpl.java:31)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest.getConnection(HsqldbUserDaoTest.java:53)&#13;
+	at org.dbunit.DatabaseTestCase.executeOperation(DatabaseTestCase.java:84)&#13;
+	at org.dbunit.DatabaseTestCase.setUp(DatabaseTestCase.java:104)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.HsqldbUserDaoTest.setUp(HsqldbUserDaoTest.java:23)&#13;
+	at junit.framework.TestCase.runBare(TestCase.java:139)&#13;
+	at junit.framework.TestResult$1.protect(TestResult.java:122)&#13;
+	at junit.framework.TestResult.runProtected(TestResult.java:142)&#13;
+	at junit.framework.TestResult.run(TestResult.java:125)&#13;
+	at junit.framework.TestCase.run(TestCase.java:129)&#13;
+	at junit.framework.TestSuite.runTest(TestSuite.java:252)&#13;
+	at junit.framework.TestSuite.run(TestSuite.java:247)&#13;
+	at org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestReference.run(JUnit3TestReference.java:124)&#13;
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:541)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463)&#13;
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209)&#13;
+Caused by: java.sql.SQLException: The database is already in use by another process: org.hsqldb.persist.NIOLockFile@8a0c27ee[file =D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck, exists=true, locked=false, valid=false, fl =null]: java.lang.Exception: checkHeartbeat(): lock file [D:\Drive\Учеба\3 Курс\1\Java\eclipse-workspace\usermanagement\db\usermanagement.lck] is presumably locked by another process.&#13;
+	at org.hsqldb.jdbc.Util.sqlException(Unknown Source)&#13;
+	at org.hsqldb.jdbc.jdbcConnection.&lt;init&gt;(Unknown Source)&#13;
+	at org.hsqldb.jdbcDriver.getConnection(Unknown Source)&#13;
+	at org.hsqldb.jdbcDriver.connect(Unknown Source)&#13;
+	at java.sql.DriverManager.getConnection(Unknown Source)&#13;
+	at java.sql.DriverManager.getConnection(Unknown Source)&#13;
+	at ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl.createConnection(ConnectionFactoryImpl.java:29)&#13;
+	... 17 more&#13;
+&#13;
+</error>
+    </testcase>
+  </testsuite>
+</testrun>

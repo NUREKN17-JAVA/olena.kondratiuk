@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.dbunit.DatabaseTestCase"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+<fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactory"/>
+<fullyQualifiedTypeName name="org.dbunit.database.DatabaseConnection"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.sql.CallableStatement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="org.dbunit.dataset.IDataSet"/>
+<fullyQualifiedTypeName name="org.dbunit.dataset.xml.XmlDataSet"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+<fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.db.ConnectionFactoryImpl"/>
+<fullyQualifiedTypeName name="ua.nure.cs.kondratiuk.usermanagement.User"/>
+</qualifiedTypeNameHistroy>

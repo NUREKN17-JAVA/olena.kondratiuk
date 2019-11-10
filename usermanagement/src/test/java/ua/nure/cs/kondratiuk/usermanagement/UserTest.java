@@ -14,7 +14,7 @@ public class UserTest extends TestCase {
 	private static final int CURRENT_YEAR = 2019;
 	private static final int MONTH_OF_BIRTH= Calendar.OCTOBER;
 	private static final int DAY_OF_BIRTH = 14;
-	private static final int ETALONE_AGE = 19;
+	private static final int ETALONE_AGE = 20;
 	
 	//birthday will be next month
 	private static final int MONTH_OF_BIRTH1 = Calendar.NOVEMBER;
