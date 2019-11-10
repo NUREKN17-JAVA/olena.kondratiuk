@@ -1,7 +1,0 @@
-1571118194895	Rename type 'UserDao'
-1571119470847	Extract constant 'FIRST_NAME'
-1571119714740	Extract constant 'LAST_NAME'
-1571120514349	Extract local variable 'driver'
-1571122121309	Extract constant 'INSERT_QUERY'
-1571125156954	Extract constant 'SELECT_FIND_ALL'
-1571126592677	Extract constant 'DAO_FACTORY'
