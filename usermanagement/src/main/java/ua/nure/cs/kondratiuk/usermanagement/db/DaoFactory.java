@@ -15,22 +15,10 @@ public class DaoFactory {
 		properties = new Properties();
 	try {
 		properties.load(getClass().getClassLoader().getResourceAsStream("settings.properties"));
-	} catch (IOException e) {
-		throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}		
 	}
-		
-	}
-	//private static DaoFactory instance;
-//	protected static Properties properties;
-	
-//	static {
-//		properties = new Properties();
-//		try {
-//			properties.load(DaoFactory.class.getClassLoader().getResourceAsStream("settings.properties"));
-//		} catch (IOException e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
 	
 	private ConnectionFactory getConnectionFactory () {
 		String user = properties.getProperty("connection.user");
