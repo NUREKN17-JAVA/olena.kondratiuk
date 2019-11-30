@@ -1,15 +1,21 @@
 package ua.nure.cs.kondratiuk.usermanagement.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import ua.nure.cs.kondratiuk.usermanagement.User;
+import ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption;
 
 public class AddPanel extends JPanel implements ActionListener {
 	private static final String ADD_PANEL_COMPONENT_NAME = "addPanel";
@@ -27,9 +33,12 @@ public class AddPanel extends JPanel implements ActionListener {
 	private JButton cancelButton;
 	private JPanel fieldPanel;
 	private JTextField firstNameField;
+	private JTextField dayOfBirthField;
+	private JTextField lastNameField;
+	private Color bgColor;
 
 	public AddPanel(MainFrame mainFrame) {
-		parent = mainFrame;
+		this.parent = mainFrame;
 		initialize();
 	}
 
@@ -37,8 +46,7 @@ public class AddPanel extends JPanel implements ActionListener {
 		this.setName(ADD_PANEL_COMPONENT_NAME);	
 		this.setLayout(new BorderLayout());
 		this.add(getFieldPanel(), BorderLayout.CENTER);
-		this.add(getButtonPanel(), BorderLayout.SOUTH);
-		
+		this.add(getButtonPanel(), BorderLayout.SOUTH);		
 	}
 
 	private JPanel getFieldPanel() {
@@ -46,7 +54,8 @@ public class AddPanel extends JPanel implements ActionListener {
 			fieldPanel = new JPanel();
 			fieldPanel.setLayout(new GridLayout(3, 2));
 			addLabeledField(fieldPanel, "Имя", getFirstNameField());
-			//add two other
+			addLabeledField(fieldPanel, "Фамилия", getLastNameField());
+			addLabeledField(fieldPanel, "Отчество", getDayOfBirthField());
 		}
 		return fieldPanel;
 	}
@@ -64,6 +73,22 @@ public class AddPanel extends JPanel implements ActionListener {
 			firstNameField.setName(FIRST_NAME_FIELD_COMPONENT_NAME);
 		}
 		return firstNameField;
+	}
+	
+	private JTextField getDayOfBirthField() {
+		if(dayOfBirthField == null) {
+			dayOfBirthField = new JTextField();
+			dayOfBirthField.setName(DATE_OF_BIRTH_FIELD_COMPONENT_NAME);
+		}
+		return dayOfBirthField;
+	}
+
+	private JTextField getLastNameField() {
+		if(lastNameField == null) {
+			lastNameField = new JTextField();
+			lastNameField.setName(LAST_NAME_FIELD_COMPONENT_NAME);
+		}
+		return lastNameField;
 	}
 
 	private JPanel getButtonPanel() {
@@ -96,10 +121,41 @@ public class AddPanel extends JPanel implements ActionListener {
 		}
 		return okButton;
 	}
+	
+	private void clearFields() {
+		getFirstNameField().setText("");
+		getFirstNameField().setBackground(bgColor);
+		
+		getLastNameField().setText("");
+		getLastNameField().setBackground(bgColor);
+		
+		getDayOfBirthField().setText("");
+		getDayOfBirthField().setBackground(bgColor);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if("ok".equalsIgnoreCase(e.getActionCommand())) {
+			User user = new User();
+			user.setFirstName(getFirstNameField().getText());
+			user.setLastName(getLastNameField().getText());
+			DateFormat format = DateFormat.getDateInstance();
+			try {
+				user.setDateOfBirth(format.parse(getDayOfBirthField().getText()));
+			} catch (ParseException e1) {
+				getDayOfBirthField().setBackground(Color.RED);
+				return;
+			}
+			try {
+				parent.getDao().create(user );
+			} catch (DatabaseExeption e1) {
+				JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", 
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		clearFields();
+		this.setVisible(false);
+		parent.showBrowsePanel();
 		
 	}
 

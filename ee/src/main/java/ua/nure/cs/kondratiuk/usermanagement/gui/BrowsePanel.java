@@ -1,14 +1,17 @@
 package ua.nure.cs.kondratiuk.usermanagement.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption;
 
 public class BrowsePanel extends JPanel implements ActionListener {
 	private static final String EDIT_COMMAND = "edit";
@@ -111,11 +114,38 @@ public class BrowsePanel extends JPanel implements ActionListener {
 		}
 		return userTable;
 	}
+	
+	public void initTable() {
+		UserTableModel model;
+		try {
+			model = new UserTableModel(parent.getDao().findAll());
+		} catch (DatabaseExeption e) {
+			model = new UserTableModel(new ArrayList());
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Eror", 
+					JOptionPane.ERROR_MESSAGE);
+		}
+		getUserTable().setModel(model);
+	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {
+		String actionCommand = e.getActionCommand();
+		if ("add".equalsIgnoreCase(actionCommand)) {
+			this.setVisible(false);
+			parent.showAddPanel();
+		}
+		else if ("edit".equalsIgnoreCase(actionCommand)) {
+			this.setVisible(false);
+			parent.showEditPanel(userTable.getSelectedRow());
+		}
+		else if ("details".equalsIgnoreCase(actionCommand)) {
+			this.setVisible(false);
+			parent.showDetailsPanel(userTable.getSelectedRow());
+		}
+		else if ("delete".equalsIgnoreCase(actionCommand)) {
+			this.setVisible(false);
+			parent.showDeletePanel(userTable.getSelectedRow());
+		}		
 	}
 
 }
