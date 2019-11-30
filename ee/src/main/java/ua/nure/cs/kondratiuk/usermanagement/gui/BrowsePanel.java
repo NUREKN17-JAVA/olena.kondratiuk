@@ -12,18 +12,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption;
+import ua.nure.cs.kondratiuk.usermanagement.util.Messages;
 
 public class BrowsePanel extends JPanel implements ActionListener {
-	private static final String EDIT_COMMAND = "edit";
-	private static final String ADD_COMMAND = "add";
-	private static final String DELETE_COMMAND = "delete";
-	private static final String DETAIL_COMMAND = "detail";
-	private static final String USER_TABLE_COMPONENT_NAME = "userTable";
-	private static final String DETAIL_BUTTON_COMPONENT_NAME = "detailButton";
-	private static final String DELETE_BUTTON_COMPONENT_NAME = "deleteButton";
-	private static final String EDIT_BUTTON_COMPONENT_NAME = "editButton";
-	private static final String ADD_BUTTON_COMPONENT_NAME = "addButton";
-	private static final String BROWSE_PANEL_COMPONENT_NAME = "browsePanel";
+	private static final String ERROR_MESSAGE = "Error";
+	private static final String EDIT_COMMAND = "edit"; //$NON-NLS-1$
+	private static final String ADD_COMMAND = "add"; //$NON-NLS-1$
+	private static final String DELETE_COMMAND = "delete"; //$NON-NLS-1$
+	private static final String DETAIL_COMMAND = "detail"; //$NON-NLS-1$
+	private static final String USER_TABLE_COMPONENT_NAME = "userTable"; //$NON-NLS-1$
+	private static final String DETAIL_BUTTON_COMPONENT_NAME = "detailButton"; //$NON-NLS-1$
+	private static final String DELETE_BUTTON_COMPONENT_NAME = "deleteButton"; //$NON-NLS-1$
+	private static final String EDIT_BUTTON_COMPONENT_NAME = "editButton"; //$NON-NLS-1$
+	private static final String ADD_BUTTON_COMPONENT_NAME = "addButton"; //$NON-NLS-1$
+	private static final String BROWSE_PANEL_COMPONENT_NAME = "browsePanel"; //$NON-NLS-1$
 	
 	private MainFrame parent;
 	private JScrollPane tablePanel;
@@ -60,7 +62,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JButton getAddButton() {
 		if (addButton == null) {
 			addButton = new JButton();
-			addButton.setText("Добавить");
+			addButton.setText(Messages.getString("BrowsePanel.add")); //$NON-NLS-1$
 			addButton.setName(ADD_BUTTON_COMPONENT_NAME);
 			addButton.setActionCommand(ADD_COMMAND);
 			addButton.addActionListener(this);
@@ -71,7 +73,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JButton getEditButton() {
 		if (editButton == null) {
 			editButton = new JButton();
-			editButton.setText("Изменить");
+			editButton.setText(Messages.getString("BrowsePanel.edit")); //$NON-NLS-1$
 			editButton.setName(EDIT_BUTTON_COMPONENT_NAME);
 			editButton.setActionCommand(EDIT_COMMAND);
 			editButton.addActionListener(this);
@@ -82,7 +84,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JButton getDeleteButton() {
 		if (deleteButton == null) {
 			deleteButton = new JButton();
-			deleteButton.setText("Удалить");
+			deleteButton.setText(Messages.getString("BrowsePanel.delete")); //$NON-NLS-1$
 			deleteButton.setName(DELETE_BUTTON_COMPONENT_NAME);
 			deleteButton.setActionCommand(DELETE_COMMAND);
 			deleteButton.addActionListener(this);
@@ -93,7 +95,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	private JButton getDetailsButton() {
 		if (detailButton == null) {
 			detailButton = new JButton();
-			detailButton.setText("Подробнее");
+			detailButton.setText(Messages.getString("BrowsePanel.details")); //$NON-NLS-1$
 			detailButton.setName(DETAIL_BUTTON_COMPONENT_NAME);
 			detailButton.setActionCommand(DETAIL_COMMAND);
 			detailButton.addActionListener(this);
@@ -121,7 +123,7 @@ public class BrowsePanel extends JPanel implements ActionListener {
 			model = new UserTableModel(parent.getDao().findAll());
 		} catch (DatabaseExeption e) {
 			model = new UserTableModel(new ArrayList());
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Eror", 
+			JOptionPane.showMessageDialog(this, e.getMessage(), ERROR_MESSAGE,  //$NON-NLS-1$
 					JOptionPane.ERROR_MESSAGE);
 		}
 		getUserTable().setModel(model);
@@ -130,19 +132,19 @@ public class BrowsePanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String actionCommand = e.getActionCommand();
-		if ("add".equalsIgnoreCase(actionCommand)) {
+		if (ADD_COMMAND.equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
 			this.setVisible(false);
 			parent.showAddPanel();
 		}
-		else if ("edit".equalsIgnoreCase(actionCommand)) {
+		else if (EDIT_COMMAND.equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
 			this.setVisible(false);
 			parent.showEditPanel(userTable.getSelectedRow());
 		}
-		else if ("details".equalsIgnoreCase(actionCommand)) {
+		else if (DETAIL_COMMAND.equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
 			this.setVisible(false);
 			parent.showDetailsPanel(userTable.getSelectedRow());
 		}
-		else if ("delete".equalsIgnoreCase(actionCommand)) {
+		else if (DELETE_COMMAND.equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
 			this.setVisible(false);
 			parent.showDeletePanel(userTable.getSelectedRow());
 		}		

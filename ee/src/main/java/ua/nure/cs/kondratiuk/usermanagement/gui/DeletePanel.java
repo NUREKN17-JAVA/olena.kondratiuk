@@ -10,8 +10,15 @@ import ua.nure.cs.kondratiuk.usermanagement.User;
 import ua.nure.cs.kondratiuk.usermanagement.db.Dao;
 import ua.nure.cs.kondratiuk.usermanagement.db.DaoFactory;
 import ua.nure.cs.kondratiuk.usermanagement.db.DatabaseExeption;
+import ua.nure.cs.kondratiuk.usermanagement.util.Messages;
 
 public class DeletePanel  extends JPanel implements ActionListener {
+	private static final String SURE_TEXT_COMPONENT_NAME = "sureText"; //$NON-NLS-1$
+	private static final String DELETE_PANEL_COMPONENT_NAME = "deletePanel"; //$NON-NLS-1$
+	private static final String CANCEL_BUTTON_COMPONENT_NAME = "cancelButton"; //$NON-NLS-1$
+	private static final String OK_BUTTON_COMPONENT_NAME = "okButton"; //$NON-NLS-1$
+	private static final String CANCEL_COMMAND = "cancel"; //$NON-NLS-1$	
+	private static final String OK_COMMAND = "ok"; //$NON-NLS-1$
 	private MainFrame parent;
 	private JPanel buttonPanel;
 	private JButton cancelButton;
@@ -26,7 +33,7 @@ public class DeletePanel  extends JPanel implements ActionListener {
 	}
 	
 	private void initialize(User usr) {
-	    this.setName("deletePanel");
+	    this.setName(DELETE_PANEL_COMPONENT_NAME);
 	    this.setLayout(new BorderLayout());
 	    this.add(getTextPanel(), BorderLayout.NORTH);
 	    this.add(getButtonPanel(), BorderLayout.SOUTH);
@@ -54,9 +61,9 @@ public class DeletePanel  extends JPanel implements ActionListener {
 	private JButton getCancelButton() {
 	    if (cancelButton == null) {
 	      cancelButton = new JButton();
-	      cancelButton.setText("Cancel");
-	      cancelButton.setName("cancelButton");
-	      cancelButton.setActionCommand("cancel");
+	      cancelButton.setText(Messages.getString("DeletePanel.cancel")); //$NON-NLS-1$
+	      cancelButton.setName(CANCEL_BUTTON_COMPONENT_NAME);
+	      cancelButton.setActionCommand(CANCEL_COMMAND);
 	      cancelButton.addActionListener(this);
 	    }
 	    return cancelButton;
@@ -65,9 +72,9 @@ public class DeletePanel  extends JPanel implements ActionListener {
 	  private JButton getOkButton() {
 	    if (okButton == null) {
 	      okButton = new JButton();
-	      okButton.setText("Ok");
-	      okButton.setName("okButton");
-	      okButton.setActionCommand("ok");
+	      okButton.setText(Messages.getString("DeletePanel.ok")); //$NON-NLS-1$
+	      okButton.setName(OK_BUTTON_COMPONENT_NAME);
+	      okButton.setActionCommand(OK_COMMAND);
 	      okButton.addActionListener(this);
 	    }
 	    return okButton;
@@ -76,15 +83,15 @@ public class DeletePanel  extends JPanel implements ActionListener {
 	  private JLabel getSureText() {
 	    if (sureText == null) {
 	      sureText = new JLabel();
-	      sureText.setText("Are you sure to delete this user?");
-	      sureText.setName("sureText");
+	      sureText.setText(Messages.getString("DeletePanel.sure_text")); //$NON-NLS-1$
+	      sureText.setName(SURE_TEXT_COMPONENT_NAME);
 	    }
 	    return sureText;
 	  }
 	
 	  @Override
 	  public void actionPerformed(ActionEvent e) {
-	    if ("ok".equalsIgnoreCase(e.getActionCommand())) {
+	    if (OK_COMMAND.equalsIgnoreCase(e.getActionCommand())) {
 	      try {
 	        userDao.delete(this.user);
 	      } catch (DatabaseExeption e1) {
