@@ -16,7 +16,7 @@ public class DaoFactoryTest extends TestCase {
 		try {
 			DaoFactory daoFactory = DaoFactory.getInstance();
 			assertNotNull("DaoFactory instanse is null", daoFactory);
-			Dao userDao = daoFactory.getDao();
+			Dao userDao = daoFactory.getUserDao();
 			assertNotNull("UserDao instanse is null", userDao);
 		} catch (RuntimeException e) {
 			e.printStackTrace();

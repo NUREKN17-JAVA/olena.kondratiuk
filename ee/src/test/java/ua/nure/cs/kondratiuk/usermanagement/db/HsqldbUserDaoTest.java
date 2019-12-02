@@ -9,7 +9,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.XmlDataSet;
 
-import junit.framework.TestCase;
 import ua.nure.cs.kondratiuk.usermanagement.User;
 
 public class HsqldbUserDaoTest extends DatabaseTestCase {

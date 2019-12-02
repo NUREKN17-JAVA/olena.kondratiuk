@@ -24,10 +24,8 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 		driver = properties.getProperty("connection.driver");
 		url = properties.getProperty("connection.url");
 		password = properties.getProperty("connection.password");				
-	}
+	}	
 	
-	
-	@Override
 	public Connection createConnection() throws DatabaseExeption {
 		try {			
 			Class.forName(driver);
@@ -40,5 +38,4 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 			throw new DatabaseExeption(e);
 		}
 	}
-
 }

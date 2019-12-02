@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import ua.nure.cs.kondratiuk.usermanagement.User;
 
-
 public interface Dao {
 	User create(User entity) throws DatabaseExeption;
 	

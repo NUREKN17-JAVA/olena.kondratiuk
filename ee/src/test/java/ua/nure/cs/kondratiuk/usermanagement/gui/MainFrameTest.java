@@ -2,19 +2,31 @@ package ua.nure.cs.kondratiuk.usermanagement.gui;
 
 import java.awt.Component;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
-
+import java.util.List;
+import java.util.Properties;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
+import com.mockobjects.dynamic.Mock;
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
 import junit.extensions.jfcunit.TestHelper;
+import junit.extensions.jfcunit.eventdata.JTableMouseEventData;
 import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.eventdata.StringEventData;
+import junit.extensions.jfcunit.finder.ComponentFinder;
+import junit.extensions.jfcunit.finder.Finder;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
+import ua.nure.cs.kondratiuk.usermanagement.User;
+import ua.nure.cs.kondratiuk.usermanagement.db.DaoFactory;
+import ua.nure.cs.kondratiuk.usermanagement.db.MockDaoFactory;
+import ua.nure.cs.kondratiuk.usermanagement.util.Messages;
 
 public class MainFrameTest extends JFCTestCase {
 	private static final String OK_BUTTON_COMPONENT_NAME = "okButton";
@@ -31,57 +43,64 @@ public class MainFrameTest extends JFCTestCase {
 	private static final String FIRST_NAME = "John";
 	private static final String LAST_NAME = "Doe";
 	private static final Date DATE_OF_BIRTH = new Date();
+	private static final String EDIT_PANEL_COMPONENT_NAME = "editPanel"; //$NON-NLS-1$	
+	private static final String CANCEL_BUTTON_COMPONENT_NAME = "cancelButton"; //$NON-NLS-1$
+	protected static final String DAO_FACTORY = "dao.Factory";
+		
 	private MainFrame mainFrame;
+	private Mock mockUserDao;
+    private Collection<User> users;
+    private User expectedUser = new User(new Long(0), FIRST_NAME, LAST_NAME, DATE_OF_BIRTH);
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		mainFrame = new MainFrame();
-		setHelper (new JFCTestHelper());
+		try {
+            Properties properties = new Properties();
+            properties.setProperty(DAO_FACTORY, MockDaoFactory.class
+                    .getName());
+            DaoFactory.init(properties);
+            mockUserDao = ((MockDaoFactory) DaoFactory.getInstance())
+                    .getMockUserDao();
+            users = Collections.singletonList(expectedUser);
+            mockUserDao.expectAndReturn("findAll", users);
+            setHelper(new JFCTestHelper());
+            mainFrame = new MainFrame();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		mainFrame.setVisible(true);
 	}
 
 	protected void tearDown() throws Exception {
-		mainFrame.setVisible(false);
-		getHelper();
-		TestHelper.cleanUp(this);		
-		super.tearDown();
+		try {
+            mockUserDao.verify();
+            mainFrame.setVisible(false);
+            getHelper();
+            TestHelper.cleanUp(this);
+            super.tearDown();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public void testBrowseControl() {
 		find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
-		find(JTable.class, USER_TABLE_COMPONENT_NAME);
+		JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+		assertEquals(3, table.getColumnCount());
+		assertEquals("ID", table.getColumnName(0));
+		assertEquals(Messages.getString("UserTableModel.first_name"), table
+            .getColumnName(1));
+		assertEquals(Messages.getString("UserTableModel.last_name"), table
+            .getColumnName(2));
+    
 		find(JButton.class, ADD_BUTTON_COMPONENT_NAME);
 		find(JButton.class, EDIT_BUTTON_COMPONENT_NAME);
 		find(JButton.class, DELETE_BUTTON_COMPONENT_NAME);
 		find(JButton.class, DETAIL_BUTTON_COMPONENT_NAME);
-	}
+	}	
 	
-	public void testAddPanelOk() {
-		JButton addButton = (JButton) find(JButton.class, ADD_BUTTON_COMPONENT_NAME);
-		getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
-		
-		find(JPanel.class, ADD_PANEL_COMPONENT_NAME);
-		fillFields(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH);
-		
-		JButton okButton = (JButton) find(JButton.class, OK_BUTTON_COMPONENT_NAME);
-		getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
-		
-		find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
-		// check number of rows in user table
-	}
-	
-	private void fillFields(String firstName, String lastName, Date dateOfBirth) {
-		JTextField firstNameField = (JTextField) find(JTextField.class, FIRST_NAME_FIELD_COMPONENT_NAME);
-		JTextField lastNameField = (JTextField) find(JTextField.class, LAST_NAME_FIELD_COMPONENT_NAME);
-		JTextField dateOfBirthField = (JTextField) find(JTextField.class, DATE_OF_BIRTH_FIELD_COMPONENT_NAME);
-		
-		getHelper().sendString(new StringEventData(this, firstNameField, firstName));
-		getHelper().sendString(new StringEventData(this, lastNameField, lastName));
-		
-		String date = DateFormat.getInstance().format(dateOfBirth);
-		getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
-	}
-
 	private Component find(Class<?> componentClass, String name) {
 		NamedComponentFinder finder;
 		finder = new NamedComponentFinder(componentClass, name);
@@ -91,5 +110,151 @@ public class MainFrameTest extends JFCTestCase {
 		return component;
 	}
 	
+	public void testAddUser() {
+		try {	        	        	
+			User user = new User(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH);
+	        mockUserDao.expectAndReturn("create", user, expectedUser);
+        	
+	        ArrayList<User> users = new ArrayList<>(this.users);
+	        users.add(expectedUser);
+	        mockUserDao.expectAndReturn("findAll", users);
+	            
+	        JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+	        assertEquals(1, table.getRowCount());
 
+	        JButton addButton = (JButton) find(JButton.class, ADD_BUTTON_COMPONENT_NAME);
+	        getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
+
+	        find(JPanel.class, ADD_PANEL_COMPONENT_NAME);
+	        fillFields(FIRST_NAME, LAST_NAME, DATE_OF_BIRTH);
+
+	        JButton okButton = (JButton) find(JButton.class, OK_BUTTON_COMPONENT_NAME);
+	        getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
+
+	        find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
+	        JTable table2 = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+	        assertEquals(2, table2.getRowCount());	            
+	            mockUserDao.verify();
+	    } catch (Exception e) {
+	    	fail(e.toString());
+	    }
+	}	
+	
+    public void testEditUser() {
+        try {           
+            mockUserDao.expect("update", expectedUser);
+
+            List<User> users = new ArrayList<>(this.users);
+            mockUserDao.expectAndReturn("findAll", users);
+            
+            JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());
+            JButton editButton = (JButton) find(JButton.class, EDIT_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
+            getHelper().enterClickAndLeave(new MouseEventData(this, editButton));
+            
+            find(JPanel.class, EDIT_PANEL_COMPONENT_NAME);
+            fillFields(FIRST_NAME + "1", LAST_NAME, DATE_OF_BIRTH);
+
+            JButton okButton = (JButton) find(JButton.class, OK_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
+
+            find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
+            table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());
+            mockUserDao.verify();            
+        } catch (Exception e) {
+            fail(e.toString());
+        }
+    }
+	
+	public void testDeleteUser() {
+        try {
+            List<User> users = new ArrayList<>();
+            mockUserDao.expectAndReturn("findAll", users);
+            
+            JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());
+            JButton deleteButton = (JButton) find(JButton.class, DELETE_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
+            
+            List<JDialog> dialogs = TestHelper.getShowingDialogs();
+            JDialog jd = (JDialog)dialogs.get(0);
+            Finder finder = new ComponentFinder(JButton.class);            
+            JButton jb = (JButton)finder.find(jd, 0);
+            
+            getHelper().enterClickAndLeave(new MouseEventData(this,jb));
+            getHelper().enterClickAndLeave(new MouseEventData(this, deleteButton));
+            
+            find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
+            table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(0, table.getRowCount());
+            mockUserDao.verify();            
+        } catch (Exception e) {
+            fail(e.toString());
+        }
+    }
+	    
+	public void testCancelEditUser() {
+        try {   
+            ArrayList<User> users = new ArrayList<>(this.users);
+            mockUserDao.expectAndReturn("findAll", users);
+            
+            JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());
+
+            JButton editButton = (JButton) find(JButton.class, EDIT_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new JTableMouseEventData(this, table, 0, 0, 1));
+            getHelper().enterClickAndLeave(new MouseEventData(this, editButton));
+            
+            find(JPanel.class, EDIT_PANEL_COMPONENT_NAME);
+
+            JButton cancelButton = (JButton) find(JButton.class, CANCEL_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new MouseEventData(this, cancelButton));
+
+            find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
+            table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());            
+            mockUserDao.verify();
+        } catch (Exception e) {
+            fail(e.toString());
+        }
+    }
+		
+	public void testCancelAddUser() {
+        try {   
+            ArrayList<User> users = new ArrayList<>(this.users);
+            mockUserDao.expectAndReturn("findAll", users);
+            
+            JTable table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());
+
+            JButton addButton = (JButton) find(JButton.class, ADD_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
+
+            find(JPanel.class, ADD_PANEL_COMPONENT_NAME);
+
+            JButton cancelButton = (JButton) find(JButton.class, CANCEL_BUTTON_COMPONENT_NAME);
+            getHelper().enterClickAndLeave(new MouseEventData(this, cancelButton));
+
+            find(JPanel.class, BROWSE_PANEL_COMPONENT_NAME);
+            table = (JTable) find(JTable.class, USER_TABLE_COMPONENT_NAME);
+            assertEquals(1, table.getRowCount());            
+            mockUserDao.verify();
+        } catch (Exception e) {
+            fail(e.toString());
+        }
+    }	
+
+    private void fillFields(String firstName, String lastName, Date dateOfBirth) {
+        JTextField firstNameField = (JTextField) find(JTextField.class, FIRST_NAME_FIELD_COMPONENT_NAME);
+        JTextField lastNameField = (JTextField) find(JTextField.class, LAST_NAME_FIELD_COMPONENT_NAME);
+        JTextField dateOfBirthField = (JTextField) find(JTextField.class, DATE_OF_BIRTH_FIELD_COMPONENT_NAME);
+
+        getHelper().sendString(new StringEventData(this, firstNameField, firstName));
+        getHelper().sendString(new StringEventData(this, lastNameField, lastName));
+        
+        String date = DateFormat.getDateInstance().format(dateOfBirth);
+        getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
+    }
 }

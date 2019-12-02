@@ -5,10 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class User implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5216426189749292118L;
+	
 	private Long id;
 	private String firstName;
 	private String lastName;
@@ -22,7 +20,12 @@ public class User implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public User() {
-		// TODO Auto-generated constructor stub
+	}
+	public User(String firstName, String lastName, Date dateOfBirth) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
 	}
 	public long getId() {
 		return id;

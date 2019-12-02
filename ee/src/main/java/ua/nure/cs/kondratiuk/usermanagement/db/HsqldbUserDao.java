@@ -80,13 +80,13 @@ class HsqldbUserDao implements Dao {
             resultUser = new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getDate(4));
             statement.close();
             resultSet.close();
-            connection.close();
-            return resultUser;    
+            connection.close();            
         } catch (DatabaseExeption e) {
 			throw e;
 		} catch (SQLException e) {
         	throw new DatabaseExeption(e);
         }
+		return resultUser;    
 	}
 
 	public void update(User entity) throws DatabaseExeption {
@@ -152,5 +152,4 @@ class HsqldbUserDao implements Dao {
 		}
 		return result;
 	}
-
 }
