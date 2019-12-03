@@ -15,7 +15,7 @@ import ua.nure.cs.kondratiuk.usermanagement.util.Messages;
 public class DetailsPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 7040316964493927169L;
 
-	private static final String DETAIL_PANEL_COMPONENT_NAME = "detailsPanel"; //$NON-NLS-1$
+	private static final String DETAILS_PANEL_COMPONENT_NAME = "detailsPanel"; //$NON-NLS-1$
 	
 	private static final String FULL_NAME_FIELD_COMPONENT_NAME = "fullNameField"; //$NON-NLS-1$
     private static final String AGE_FIELD_COMPONENT_NAME = "ageField"; //$NON-NLS-1$
@@ -44,7 +44,7 @@ public class DetailsPanel extends JPanel implements ActionListener {
 
     private void initialize() {
         setLayout(new BorderLayout());
-        setName(DETAIL_PANEL_COMPONENT_NAME);
+        setName(DETAILS_PANEL_COMPONENT_NAME);
         add(getFieldPanel(), BorderLayout.NORTH);
         add(getCloseButton(), BorderLayout.SOUTH);
     }
