@@ -44,7 +44,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		assertNotNull("Collection is null", items);
 		assertEquals("collectoin size does not match", 2, items.size());
 	}
-
+	
 	public void testFind() throws DatabaseExeption {
 		User defaultUser = dao.create(user);
 		assertNotNull(defaultUser.getId());
@@ -52,6 +52,14 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		assertNotNull(foundUser);
 		assertEquals(defaultUser.getId(), foundUser.getId());
 	}
+
+	public void testFindByFNandLN() throws DatabaseExeption {
+		User defaultUser = dao.create(user);
+		assertNotNull(defaultUser.getId());
+		Collection<User> foundUsers = dao.find(defaultUser.getFirstName(), defaultUser.getLastName());
+		assertNotNull(foundUsers);
+		assertEquals(defaultUser.getId(), foundUsers.iterator().next().getId());
+	}	
 
 	public void testUpdate() throws DatabaseExeption {
 		User testUser = dao.create(user);
